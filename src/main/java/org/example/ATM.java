@@ -2,9 +2,11 @@ package org.example;
 
 import java.util.Objects;
 
+import static org.example.UserInterface.message;
+
 public class ATM {
 
-    private final Card card;
+    private Card card;
     private int remainingTry = 3;
     private boolean validated = false;
     private boolean firstInput = true;
@@ -12,12 +14,13 @@ public class ATM {
     private final OperationFactory factory;
 
     public ATM() {
-        this.card = new Card();
         this.factory = new OperationFactory();
     }
 
     public void doExecute(String input) {
-        if (!validated) {
+        if (card == null) {
+            buildCard(input);
+        } else if (!validated) {
             validatePin(input);
         }
         else {
@@ -25,30 +28,41 @@ public class ATM {
         }
     }
 
-    void validatePin(String input) {
+    private void buildCard(String input) {
+        try {
+            String cardLine = FileIO.returnMatchingLine(input, "src/main/resources/card.csv", "Error no card found");
+            String[] cardText = cardLine.split(",");
+            card = new Card(cardText[0], cardText[1], cardText[2], Boolean.valueOf(cardText[3]));
+            doExecute(null);
+        } catch (Exception e) {
+            message("no matching card found");
+        }
+    }
+
+    private void validatePin(String input) {
         if (firstInput) {
-            UserInterface.message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
+            message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
             firstInput = false;
         } else if (!validated && remainingTry>0) {
             validated = card.validePincode(input);
             if (validated) {
-                UserInterface.message("SUCCESS");
+                message("SUCCESS");
                 doExecute(null);
             } else {
-                UserInterface.message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
+                message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
             }
         } else if (!validated && remainingTry<= 0) {
-            UserInterface.message("To much try, your card as been deactivated");
+            message("To much try, your card as been deactivated");
             System.exit(0);
         }
         remainingTry--;
     }
 
-    void choseOperation(String input) {
+    private void choseOperation(String input) {
         if (input == null && operation == null) {
-            UserInterface.message(String.format("Please choose an operation:%s1. Withdrew%s2. Balance", System.lineSeparator(), System.lineSeparator()));
+            message(String.format("Please choose an operation:%s1. Withdrew%s2. Balance", System.lineSeparator(), System.lineSeparator()));
         } else if (operation == null) {
-            operation = factory.create(input);
+            operation = factory.create(input, card);
             choseOperation(null);
         } else if (Objects.equals(input, "exit")) {
             operation = null;

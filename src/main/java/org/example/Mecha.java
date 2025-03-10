@@ -3,6 +3,7 @@ package org.example;
 public class Mecha {
 
     private boolean jamed = false;
+    private final String path = "src/main/resources/atm-reserve.txt";
 
     public boolean isJamed() {
         return jamed;
@@ -16,8 +17,8 @@ public class Mecha {
         return false;
     }
 
-    Integer readBalance() {
-        return FileIO.readLastLine("src/main/resources/atm-reserve.txt",
+    private Integer readBalance() {
+        return FileIO.readLastLine(path,
                 "Sorry mechanical problem in the ATM");
     }
 
@@ -28,7 +29,7 @@ public class Mecha {
         UserInterface.message("BRR-BRR-BRR");
     }
 
-    void updateReserve(Integer newReserve) {
-        FileIO.writeNewLine(newReserve, "src/main/resources/atm-reserve.txt");
+    private void updateReserve(Integer newReserve) {
+        FileIO.writeNewLine(newReserve, path);
     }
 }

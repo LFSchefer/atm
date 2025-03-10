@@ -1,7 +1,6 @@
 package org.example;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -13,7 +12,7 @@ public class UserInterface {
     }
 
     public void begin() {
-        message("Welcome" + System.lineSeparator() + "Press any key");
+        message("Welcome" + System.lineSeparator() + "Enter your card number:");
         Scanner scanner = new Scanner(System.in);
         String userInput = "null";
         while (!userInput.equals("q")) {

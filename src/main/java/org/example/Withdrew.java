@@ -1,50 +1,55 @@
 package org.example;
 
+import static org.example.UserInterface.internalError;
+import static org.example.UserInterface.message;
+
 public class Withdrew extends Operation {
 
+    private final Card card;
     private final Bank bank;
     private final Mecha mecha;
 
-    public Withdrew() {
+    public Withdrew(Card card) {
         this.bank = new Bank();
         this.mecha = new Mecha();
+        this.card = card;
     }
 
     @Override
     public void doExecute(String input) {
-        UserInterface.message("Withdrew");
+        message("Withdrew");
         if (input != null && !input.isBlank()) {
             if (validateAmount(input)) {
-                var operationAuthorized = bank.authorizeWithdrew(Integer.valueOf(input));
+                var operationAuthorized = bank.authorizeWithdrew(Integer.valueOf(input), card);
                 if (operationAuthorized) {
-                    UserInterface.message("Transaction accepted");
+                    message("Transaction accepted");
                     var reserveResponse = mecha.reserveIsEnought(Integer.valueOf(input));
                     if (reserveResponse) {
                         if (!mecha.isJamed()) {
                         mecha.doWithdrew(Integer.valueOf(input));
-                        bank.doWithdrew(Integer.valueOf(input));
-                        UserInterface.message("Take your cash");
+                        bank.doWithdrew(Integer.valueOf(input), card);
+                        message("Take your cash");
                         } else {
-                            UserInterface.internalError("Mechanical system is jamed"
+                            internalError("Mechanical system is jamed"
                                     + System.lineSeparator()
                                     + "No money have been withdrew from your account");
                         }
                     } else {
-                        UserInterface.internalError("Sorry not enough money in the ATM");
+                        internalError("Sorry not enough money in the ATM");
                     }
                 } else {
-                    UserInterface.message("Amount unauthorized");
+                    message("Amount unauthorized");
                 }
             } else {
-                UserInterface.message(String.format("Please enter a valid amount ! %s %s is not a valid value", System.lineSeparator(), input));
+                message(String.format("Please enter a valid amount ! %s %s is not a valid value", System.lineSeparator(), input));
             }
         } else {
-            UserInterface.message("Please enter the desired amount:");
+            message("Please enter the desired amount:");
         }
-        UserInterface.message("'exit' to quit current operation");
+        message("'exit' to quit current operation");
     }
 
-    boolean validateAmount(String amount) {
+    private boolean validateAmount(String amount) {
         try {
             int value = Integer.parseInt(amount);
             if (value < 2000 && value % 10 == 0 && value > 0) {

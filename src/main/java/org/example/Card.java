@@ -2,10 +2,16 @@ package org.example;
 
 public class Card {
 
-    private String pinCode = "1234";
-    private boolean locked = true;
+    private String cardNumber;
+    private String pinCode;
+    private String accountNumber;
+    private boolean locked;
 
-    public Card() {
+    public Card(String cardNumber, String accountNumber, String pinCode, boolean locked) {
+        this.cardNumber = cardNumber;
+        this.pinCode = pinCode;
+        this.locked = locked;
+        this.accountNumber = accountNumber;
     }
 
     public boolean validePincode(String code) {
@@ -16,4 +22,7 @@ public class Card {
         return false;
     }
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 }

@@ -1,19 +1,23 @@
 package org.example;
 
+import static org.example.UserInterface.message;
+
 public class Balance extends Operation{
 
+    private final Card card;
     private final Bank bank;
 
-    public Balance() {
+    public Balance(Card card) {
         this.bank = new Bank();
+        this.card = card;
     }
 
     @Override
     public void doExecute(String input) {
-        Integer balance = bank.getBalance();
+        Integer balance = bank.getBalance(card);
         if (balance != null) {
-            UserInterface.message(String.format("Your account balance: %s $", balance));
+            message(String.format("Your account balance: %s $", balance));
         }
-        UserInterface.message("'exit' to quit current operation");
+        message("'exit' to quit current operation");
     }
 }

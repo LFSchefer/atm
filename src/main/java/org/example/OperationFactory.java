@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class OperationFactory {
 
-    public Operation create(String input) {
+    public Operation create(String input, Card card) {
         if (Objects.equals(input, "1")) {
-            return new Withdrew();
+            return new Withdrew(card);
         } else if (Objects.equals(input, "2")) {
-            return new Balance();
+            return new Balance(card);
         }
         return null;
     }

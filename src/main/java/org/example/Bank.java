@@ -1,32 +1,42 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class Bank {
 
-    public Integer getBalance() {
-        return readBalance();
+    private Map<String, String> accounts;
+    private final String path = "src/main/resources/bank.csv";
+
+    public Integer getBalance(Card card) {
+        String line = FileIO.returnMatchingLine(card.getAccountNumber()
+                ,path
+                ,"Sorry can not reach your bank");
+        return Integer.valueOf(line.split(",")[1]);
     }
 
-    public boolean authorizeWithdrew(Integer value) {
-        var currentBalance = readBalance();
+    public boolean authorizeWithdrew(Integer value, Card card) {
+        var currentBalance = getBalance(card);
         if ( currentBalance != null && currentBalance > 0 ) {
             return currentBalance >= value;
         }
         return false;
     }
 
-    public void doWithdrew(Integer input) {
-        Integer currentBalance = readBalance();
+    public void doWithdrew(Integer input, Card card) {
+        Integer currentBalance = getBalance(card);
         Integer updatedBalance = currentBalance - input;
-        updateBalance(updatedBalance);
+        updateBalance(updatedBalance, card);
     }
 
-    Integer readBalance() {
-        return FileIO.readLastLine("src/main/resources/bank.txt",
-                "Sorry can not reach your bank");
-    }
-
-    void updateBalance(Integer newBalance) {
-        FileIO.writeNewLine(newBalance, "src/main/resources/bank.txt");
+    private void updateBalance(Integer newBalance, Card card) {
+       Set<String> accountSet =  FileIO.getAccounts(path,
+               "Sorry can not reach your bank");
+        accounts = new HashMap<>();
+        accountSet.forEach( line -> accounts.put(line.split(",")[0],line.split(",")[1]));
+        accounts.replace(card.getAccountNumber(), String.valueOf(newBalance));
+       FileIO.writeFile(accounts, path);
     }
 
 
