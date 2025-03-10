@@ -20,9 +20,15 @@ public class Withdrew extends Operation {
                     System.out.println("Transaction accepted");
                     var reserveResponse = mecha.reserveIsEnought(Integer.valueOf(input));
                     if (reserveResponse) {
+                        if (!mecha.isJamed()) {
                         mecha.doWithdrew(Integer.valueOf(input));
                         bank.doWithdrew(Integer.valueOf(input));
                         System.out.println("Take your cash");
+                        } else {
+                            System.out.println("Mechanical system is jamed"
+                                    + System.lineSeparator()
+                                    + "No money have been withdrew from your account");
+                        }
                     } else {
                         System.out.println("Sorry not enough money in the ATM");
                     }

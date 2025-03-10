@@ -1,15 +1,12 @@
 package org.example;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.stream.Stream;
-
 public class Mecha {
+
+    private boolean jamed = false;
+
+    public boolean isJamed() {
+        return jamed;
+    }
 
     public boolean reserveIsEnought(Integer desired) {
         var reserveAmound = readBalance();
@@ -20,22 +17,8 @@ public class Mecha {
     }
 
     Integer readBalance() {
-        Path path = Path.of("src/main/resources/atm-reserve.txt");
-        File file = new File(path.toUri());
-        var exist = file.exists();
-        if (!exist) {
-            System.out.println("Sorry mechanical problem in the ATM");
-        } else {
-            try {
-                Stream<String> lines = Files.lines(path);
-                Integer currentBalance = lines.map(Integer::valueOf).toList().getLast();
-                return currentBalance;
-            } catch (IOException e) {
-                System.out.println("Sorry, an error as occurred");
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
+        return FileIO.readLastLine("src/main/resources/atm-reserve.txt",
+                "Sorry mechanical problem in the ATM");
     }
 
     public void doWithdrew(Integer desired) {
@@ -46,11 +29,6 @@ public class Mecha {
     }
 
     void updateReserve(Integer newReserve) {
-        String newLine = System.lineSeparator() + String.valueOf(newReserve);
-        try {
-            Files.write(Paths.get("src/main/resources/atm-reserve.txt"), newLine.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileIO.writeNewLine(newReserve, "src/main/resources/atm-reserve.txt");
     }
 }
