@@ -12,36 +12,36 @@ public class Withdrew extends Operation {
 
     @Override
     public void doExecute(String input) {
-        System.out.println("Withdrew");
+        UserInterface.message("Withdrew");
         if (input != null && !input.isBlank()) {
             if (validateAmount(input)) {
                 var operationAuthorized = bank.authorizeWithdrew(Integer.valueOf(input));
                 if (operationAuthorized) {
-                    System.out.println("Transaction accepted");
+                    UserInterface.message("Transaction accepted");
                     var reserveResponse = mecha.reserveIsEnought(Integer.valueOf(input));
                     if (reserveResponse) {
                         if (!mecha.isJamed()) {
                         mecha.doWithdrew(Integer.valueOf(input));
                         bank.doWithdrew(Integer.valueOf(input));
-                        System.out.println("Take your cash");
+                        UserInterface.message("Take your cash");
                         } else {
-                            System.out.println("Mechanical system is jamed"
+                            UserInterface.internalError("Mechanical system is jamed"
                                     + System.lineSeparator()
                                     + "No money have been withdrew from your account");
                         }
                     } else {
-                        System.out.println("Sorry not enough money in the ATM");
+                        UserInterface.internalError("Sorry not enough money in the ATM");
                     }
                 } else {
-                    System.out.println("Amount unauthorized");
+                    UserInterface.message("Amount unauthorized");
                 }
             } else {
-                System.out.println(String.format("Please enter a valid amount ! %s %s is not a valid value", System.lineSeparator(), input));
+                UserInterface.message(String.format("Please enter a valid amount ! %s %s is not a valid value", System.lineSeparator(), input));
             }
         } else {
-            System.out.println("Please enter the desired amount:");
+            UserInterface.message("Please enter the desired amount:");
         }
-        System.out.println("'exit' to quit current operation");
+        UserInterface.message("'exit' to quit current operation");
     }
 
     boolean validateAmount(String amount) {

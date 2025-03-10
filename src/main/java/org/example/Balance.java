@@ -12,8 +12,8 @@ public class Balance extends Operation{
     public void doExecute(String input) {
         Integer balance = bank.getBalance();
         if (balance != null) {
-            System.out.println(String.format("Your account balance: %s $", balance));
+            UserInterface.message(String.format("Your account balance: %s $", balance));
         }
-        System.out.println("'exit' to quit current operation");
+        UserInterface.message("'exit' to quit current operation");
     }
 }

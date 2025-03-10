@@ -16,7 +16,7 @@ public class FileIO {
         File file = new File(path.toUri());
         var exist = file.exists();
         if (!exist) {
-            System.out.println(error);
+            UserInterface.internalError(error);
         } else {
             try {
                 Stream<String> lines = Files.lines(path);
@@ -30,7 +30,11 @@ public class FileIO {
     }
 
     public static void writeNewLine(Integer value, String path) {
-        String newLine = System.lineSeparator() + String.valueOf(value);
+        writeNewLine(String.valueOf(value), path);
+    }
+
+    public static void writeNewLine(String msg, String path) {
+        String newLine = System.lineSeparator() + msg;
         try {
             Files.write(Paths.get(path), newLine.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
         } catch (IOException e) {

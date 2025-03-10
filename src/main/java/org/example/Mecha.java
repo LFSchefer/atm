@@ -25,7 +25,7 @@ public class Mecha {
         var actualReserve = readBalance();
         var updatedReserve = actualReserve - desired;
         updateReserve(updatedReserve);
-        System.out.println("BRR-BRR-BRR");
+        UserInterface.message("BRR-BRR-BRR");
     }
 
     void updateReserve(Integer newReserve) {

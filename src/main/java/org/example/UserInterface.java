@@ -1,5 +1,7 @@
 package org.example;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -11,13 +13,23 @@ public class UserInterface {
     }
 
     public void begin() {
-        System.out.println("Welcome" + System.lineSeparator() + "Press any key");
+        message("Welcome" + System.lineSeparator() + "Press any key");
         Scanner scanner = new Scanner(System.in);
         String userInput = "null";
         while (!userInput.equals("q")) {
             userInput = scanner.nextLine();
             atm.doExecute(userInput);
         }
-        System.out.println("Cya");
+        message("Cya");
+    }
+
+    public static void message(String msg) {
+        System.out.println(msg);
+    }
+
+    public static void internalError(String msg) {
+        message(msg);
+        String log = String.format("%s : %s",Instant.now(), msg);
+        FileIO.writeNewLine(log ,"src/main/resources/error-logs.txt");
     }
 }

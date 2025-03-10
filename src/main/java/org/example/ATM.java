@@ -27,18 +27,18 @@ public class ATM {
 
     void validatePin(String input) {
         if (firstInput) {
-            System.out.println("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
+            UserInterface.message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
             firstInput = false;
         } else if (!validated && remainingTry>0) {
             validated = card.validePincode(input);
             if (validated) {
-                System.out.println("SUCCESS");
+                UserInterface.message("SUCCESS");
                 doExecute(null);
             } else {
-                System.out.println("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
+                UserInterface.message("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
             }
         } else if (!validated && remainingTry<= 0) {
-            System.out.println("To much try, your card as been deactivated");
+            UserInterface.message("To much try, your card as been deactivated");
             System.exit(0);
         }
         remainingTry--;
@@ -46,9 +46,7 @@ public class ATM {
 
     void choseOperation(String input) {
         if (input == null && operation == null) {
-            System.out.println("Please choose an operation:");
-            System.out.println("1. Withdrew");
-            System.out.println("2. Balance");
+            UserInterface.message(String.format("Please choose an operation:%s1. Withdrew%s2. Balance", System.lineSeparator(), System.lineSeparator()));
         } else if (operation == null) {
             operation = factory.create(input);
             choseOperation(null);
