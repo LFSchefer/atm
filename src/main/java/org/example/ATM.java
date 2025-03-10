@@ -25,7 +25,7 @@ public class ATM {
         }
     }
 
-    private void validatePin(String input) {
+    void validatePin(String input) {
         if (firstInput) {
             System.out.println("Please enter your pin code:" + System.lineSeparator() + "remaining try: " + remainingTry);
             firstInput = false;
@@ -44,7 +44,7 @@ public class ATM {
         remainingTry--;
     }
 
-    private void choseOperation(String input) {
+    void choseOperation(String input) {
         if (input == null && operation == null) {
             System.out.println("Please choose an operation:");
             System.out.println("1. Withdrew");

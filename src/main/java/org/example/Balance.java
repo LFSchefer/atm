@@ -10,8 +10,10 @@ public class Balance extends Operation{
 
     @Override
     public void doExecute(String input) {
-        System.out.println("Your account balance:");
-        bank.getBalance();
+        Integer balance = bank.getBalance();
+        if (balance != null) {
+            System.out.println(String.format("Your account balance: %s $", balance));
+        }
         System.out.println("'exit' to quit current operation");
     }
 }
