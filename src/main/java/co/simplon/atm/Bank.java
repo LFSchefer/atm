@@ -1,4 +1,4 @@
-package org.example;
+package co.simplon.atm;
 
 import java.util.HashMap;
 import java.util.Map;

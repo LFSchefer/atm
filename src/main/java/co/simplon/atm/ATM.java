@@ -1,8 +1,8 @@
-package org.example;
+package co.simplon.atm;
 
 import java.util.Objects;
 
-import static org.example.UserInterface.message;
+import static co.simplon.atm.UserInterface.message;
 
 public class ATM {
 

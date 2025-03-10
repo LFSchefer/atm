@@ -1,4 +1,4 @@
-package org.example;
+package co.simplon.atm;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.example.UserInterface.internalError;
+import static co.simplon.atm.UserInterface.internalError;
 
 public class FileIO {
 

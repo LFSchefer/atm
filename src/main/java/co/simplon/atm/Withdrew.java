@@ -1,7 +1,7 @@
-package org.example;
+package co.simplon.atm;
 
-import static org.example.UserInterface.internalError;
-import static org.example.UserInterface.message;
+import static co.simplon.atm.UserInterface.internalError;
+import static co.simplon.atm.UserInterface.message;
 
 public class Withdrew extends Operation {
 

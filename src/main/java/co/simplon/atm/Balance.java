@@ -1,6 +1,6 @@
-package org.example;
+package co.simplon.atm;
 
-import static org.example.UserInterface.message;
+import static co.simplon.atm.UserInterface.message;
 
 public class Balance extends Operation{
 
