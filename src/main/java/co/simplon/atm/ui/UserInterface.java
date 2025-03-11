@@ -22,7 +22,7 @@ public class UserInterface {
             userInput = scanner.nextLine();
             atm.doExecute(userInput);
         }
-        message("Cya");
+        message("Cya ;)");
     }
 
     public static void message(String msg) {

@@ -3,21 +3,21 @@ package co.simplon.atm.core;
 import static co.simplon.atm.ui.UserInterface.internalError;
 import static co.simplon.atm.ui.UserInterface.message;
 
-public class Withdrew extends Operation {
+public class Withdraw extends Operation {
 
     private final Card card;
     private final Bank bank;
     private final Mecha mecha;
 
-    public Withdrew(Card card) {
+    public Withdraw(Card card) {
         this.bank = new Bank();
         this.mecha = new Mecha();
         this.card = card;
     }
 
     @Override
-    public void doExecute(String input) {
-        message("Withdrew");
+    public boolean doExecute(String input) {
+        message("Withdraw");
         if (input != null && !input.isBlank()) {
             if (validateAmount(input)) {
                 var operationAuthorized = bank.authorizeWithdrew(Integer.valueOf(input), card);
@@ -29,6 +29,7 @@ public class Withdrew extends Operation {
                         mecha.doWithdrew(Integer.valueOf(input));
                         bank.doWithdrew(Integer.valueOf(input), card);
                         message("Take your cash");
+                        return true;
                         } else {
                             internalError("Mechanical system is jamed"
                                     + System.lineSeparator()
@@ -47,6 +48,7 @@ public class Withdrew extends Operation {
             message("Please enter the desired amount:");
         }
         message("'exit' to quit current operation");
+        return false;
     }
 
     private boolean validateAmount(String amount) {

@@ -13,11 +13,11 @@ public class Balance extends Operation {
     }
 
     @Override
-    public void doExecute(String input) {
+    public boolean doExecute(String input) {
         Integer balance = bank.getBalance(card);
         if (balance != null) {
             message(String.format("Your account balance: %s $", balance));
         }
-        message("'exit' to quit current operation");
+        return true;
     }
 }

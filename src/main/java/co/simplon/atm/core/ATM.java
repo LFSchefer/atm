@@ -62,7 +62,8 @@ public class ATM {
 
     private void choseOperation(String input) {
         if (input == null && operation == null) {
-            message(String.format("Please choose an operation:%s1. Withdrew%s2. Balance", System.lineSeparator(), System.lineSeparator()));
+            message(String.format("Please choose an operation:%s1. Withdrew%s2. Balance%s 'q' to exit",
+                    System.lineSeparator(), System.lineSeparator(), System.lineSeparator()));
         } else if (operation == null) {
             operation = factory.create(input, card);
             choseOperation(null);
@@ -70,7 +71,11 @@ public class ATM {
             operation = null;
             choseOperation(null);
         } else {
-            operation.doExecute(input);
+            boolean operationIsOk = operation.doExecute(input);
+            if (operationIsOk) {
+                operation = null;
+                choseOperation(null);
+            }
         }
     }
 }
