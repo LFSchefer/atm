@@ -3,6 +3,8 @@ package co.simplon.atm.core;
 import co.simplon.atm.persistance.FileIO;
 import co.simplon.atm.ui.UserInterface;
 
+import java.util.SplittableRandom;
+
 public class Mecha {
 
     private boolean jamed = false;
@@ -30,6 +32,11 @@ public class Mecha {
         var updatedReserve = actualReserve - desired;
         updateReserve(updatedReserve);
         UserInterface.message("BRR-BRR-BRR");
+        SplittableRandom splittableRandom = new SplittableRandom();
+        int randomWithSplittableRandom = splittableRandom.nextInt(0, 100);
+        if (randomWithSplittableRandom == 0) {
+            jamed = true;
+        }
     }
 
     private void updateReserve(Integer newReserve) {
