@@ -1,7 +1,7 @@
-package co.simplon.atm;
+package co.simplon.atm.core;
 
-import static co.simplon.atm.UserInterface.internalError;
-import static co.simplon.atm.UserInterface.message;
+import static co.simplon.atm.ui.UserInterface.internalError;
+import static co.simplon.atm.ui.UserInterface.message;
 
 public class Withdrew extends Operation {
 

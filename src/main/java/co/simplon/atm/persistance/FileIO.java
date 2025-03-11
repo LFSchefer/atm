@@ -1,4 +1,4 @@
-package co.simplon.atm;
+package co.simplon.atm.persistance;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static co.simplon.atm.UserInterface.internalError;
+import static co.simplon.atm.ui.UserInterface.internalError;
 
 public class FileIO {
 

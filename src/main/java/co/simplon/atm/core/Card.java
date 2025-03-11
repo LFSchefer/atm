@@ -1,4 +1,4 @@
-package co.simplon.atm;
+package co.simplon.atm.core;
 
 public class Card {
 

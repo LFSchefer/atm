@@ -1,15 +1,17 @@
-package co.simplon.atm;
+package co.simplon.atm.core;
+
+import co.simplon.atm.persistance.FileIO;
 
 import java.util.Objects;
 
-import static co.simplon.atm.UserInterface.message;
+import static co.simplon.atm.ui.UserInterface.message;
 
 public class ATM {
 
-    private Card card;
     private int remainingTry = 3;
     private boolean validated = false;
     private boolean firstInput = true;
+    private Card card;
     private Operation operation;
     private final OperationFactory factory;
 

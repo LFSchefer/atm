@@ -1,8 +1,8 @@
-package co.simplon.atm;
+package co.simplon.atm.core;
 
-import static co.simplon.atm.UserInterface.message;
+import static co.simplon.atm.ui.UserInterface.message;
 
-public class Balance extends Operation{
+public class Balance extends Operation {
 
     private final Card card;
     private final Bank bank;

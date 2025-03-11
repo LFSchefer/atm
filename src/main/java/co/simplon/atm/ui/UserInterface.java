@@ -1,4 +1,7 @@
-package co.simplon.atm;
+package co.simplon.atm.ui;
+
+import co.simplon.atm.core.ATM;
+import co.simplon.atm.persistance.FileIO;
 
 import java.time.Instant;
 import java.util.Scanner;

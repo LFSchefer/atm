@@ -1,4 +1,7 @@
-package co.simplon.atm;
+package co.simplon.atm.core;
+
+import co.simplon.atm.persistance.FileIO;
+import co.simplon.atm.ui.UserInterface;
 
 public class Mecha {
 
@@ -10,20 +13,20 @@ public class Mecha {
     }
 
     public boolean reserveIsEnought(Integer desired) {
-        var reserveAmound = readBalance();
+        var reserveAmound = readReserve();
         if (reserveAmound != null) {
             return reserveAmound >= desired;
         }
         return false;
     }
 
-    private Integer readBalance() {
+    private Integer readReserve() {
         return FileIO.readLastLine(path,
                 "Sorry mechanical problem in the ATM");
     }
 
     public void doWithdrew(Integer desired) {
-        var actualReserve = readBalance();
+        var actualReserve = readReserve();
         var updatedReserve = actualReserve - desired;
         updateReserve(updatedReserve);
         UserInterface.message("BRR-BRR-BRR");
